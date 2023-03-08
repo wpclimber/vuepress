@@ -1,0 +1,79 @@
+module.exports = {
+    title: 'Climber 技术文档 | .NET',
+    description: 'Climber的在线技术说明文档，本文档仅仅是各种学习工作中整理记录',
+    host:'127.0.0.1',
+    port:'8084',
+    dest:'.vuepress/dist',//指定 vuepress build 的输出目录。如果传入的是相对路径，则会基于 process.cwd() 进行解析
+    locales:'',
+    theme: '@vuepress/theme-default', // 或者一个官方主题: '@vuepress/theme-default'
+    themeConfig: {
+        // sidebarDepth: 2,
+        // displayAllHeaders: true,// 默认值：false 显示所有页面的标题链接
+        sidebar: [
+            {
+              title: 'Centos7',   // 必要的
+              path: '/centos7/',      // 可选的, 标题的跳转链接，应为绝对路径且必须存在
+              collapsable: false, // 可选的, 默认值是 true,
+              sidebarDepth: 1,    // 可选的, 默认值是 1
+              initialOpenGroupIndex: -1, // 可选的, 默认值是 0
+              children: [
+                    {
+                        title: '更新yum源',
+                        path: '/centos7/update-yum',
+                        initialOpenGroupIndex: 0 // 可选的, 默认值是 0
+                    },
+                    {
+                        title: 'yum安装Redis',
+                        path: '/centos7/yum-redis',
+                        initialOpenGroupIndex: 1 // 可选的, 默认值是 0
+                    },
+                    {
+                        title: 'yum安装nginx',
+                        path: '/centos7/yum-nginx',
+                        initialOpenGroupIndex: 2 // 可选的, 默认值是 0
+                    }
+              ]
+            },
+            {
+              title: '.NET Core',
+              path: '/bar/',      // 可选的, 标题的跳转链接，应为绝对路径且必须存在
+              initialOpenGroupIndex: 0, // 可选的, 默认值是 0
+              children: [
+                {
+                    title: '使用log4net记录日志',
+                    path: '/bar/three',
+                    initialOpenGroupIndex: 0 // 可选的, 默认值是 0
+                },
+                {
+                    title: '项目发布到Centos上',
+                    path: '/bar/four',
+                    initialOpenGroupIndex: 1 // 可选的, 默认值是 0
+                }
+              ]
+            }
+            
+          ],
+        search: true,   //你可以通过设置 themeConfig.search: false 来禁用默认的搜索框
+        searchMaxSuggestions: 10,   //通过 themeConfig.searchMaxSuggestions 来调整默认搜索框显示的搜索结果数量
+        lastUpdated: true, // string | boolean
+        nextLinks: true,   // 默认值是 true 。设置为 false 来禁用所有页面的 下一篇 链接
+        prevLinks: true     // 默认值是 true 。设置为 false 来禁用所有页面的 上一篇 链接
+      },
+      markdown:{
+        lineNumbers: true
+      },
+      //插件
+      plugins: [
+        [//插件-复制
+          "vuepress-plugin-code-copy", {
+            selector: 'div[class*="language-"] pre',
+            align: 'bottom',
+            color: '#FCFEFF',
+            backgroundTransition: true,
+            backgroundColor: '#FCFEFF',
+            successText: '✔️复制成功',
+            staticIcon:true
+          }
+        ]
+      ]
+  }
