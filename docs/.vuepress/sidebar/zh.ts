@@ -38,6 +38,7 @@ export const zhSidebarConfig = sidebar({
                         "/dir/netcore/snowflake.md",
                         "/dir/netcore/automapper.md",
                         "/dir/netcore/mongodb.md",
+                        "/dir/netcore/quartznet.md",
                     ],
                 },
                 {

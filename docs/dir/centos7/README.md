@@ -16,26 +16,31 @@
 
 
 ## .NET Core
-- [NETCore使用log4net记录日志](/docs/dir/netcore/log4net.md) <!-- 具体文件可以使用 .md 结尾（推荐） -->
-- [NETCore项目发布到Centos上](/docs/dir/netcore/publish-netcore.md) <!-- 也可以用 .html -->
-- [NETCore项目发布到IIS上](/docs/dir/netcore/publish-iis.md) 
-- [NETCore引入雪花飘逸雪花Id](/docs/dir/netcore/snowflake.md) 
-- [AutoMapper的使用](/docs/dir/netcore/automapper.md) 
-- [NETCore项目引入MongoDb](/docs/dir/netcore/mongodb.md) 
+- [NETCore使用log4net记录日志](/dir/netcore/log4net.md) <!-- 具体文件可以使用 .md 结尾（推荐） -->
+- [NETCore项目发布到Centos上](/dir/netcore/publish-netcore.md) <!-- 也可以用 .html -->
+- [NETCore项目发布到IIS上](/dir/netcore/publish-iis.md) 
+- [NETCore引入雪花飘逸雪花Id](/dir/netcore/snowflake.md) 
+- [AutoMapper的使用](/dir/netcore/automapper.md) 
+- [NETCore项目引入MongoDb](/dir/netcore/mongodb.md) 
+- [NETCore项目引入Quartz.net定时任务](/dir/netcore/quartznet.md) 
+
+
+
+
 
 ## 高并发组件
-- [Nginx配置集合](/docs/dir/highconcurrency/update-yum.md) <!-- 具体文件可以使用 .md 结尾（推荐） -->
+- [Nginx配置集合](/dir/highconcurrency/update-yum.md) <!-- 具体文件可以使用 .md 结尾（推荐） -->
 <!-- - [yum安装Redis](yum-redis.md) 
 - [yum安装nginx](yum-nginx.md) 
 - [yum安装mongodb](yum-mongodb.md)  -->
 
 ## Docker
-- [Centos7安装Docker](/docs/dir/docker/install-docker.md)
-- [Centos7安装doker-compoe](/docs/dir/docker/install-doker-compoe.md)
-- [Docker安装MongoDb](/docs/dir/docker/docker-mongodb.md)
-- [Docker构建nginx容器](/docs/dir/docker/docker-nginx.md)
-- [Docker安装RabbitMQ](/docs/dir/docker/docker-rabbitmq.md)
-- [docker 安装redis](/docs/dir/docker/docker-redis.md)
+- [Centos7安装Docker](/dir/docker/install-docker.md)
+- [Centos7安装doker-compoe](/dir/docker/install-doker-compoe.md)
+- [Docker安装MongoDb](/dir/docker/docker-mongodb.md)
+- [Docker构建nginx容器](/dir/docker/docker-nginx.md)
+- [Docker安装RabbitMQ](/dir/docker/docker-rabbitmq.md)
+- [docker 安装redis](/dir/docker/docker-redis.md)
 
 
 ## K8s
