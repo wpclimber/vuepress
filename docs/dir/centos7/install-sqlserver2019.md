@@ -1,18 +1,17 @@
 # 安装Sqlserver2019数据库
 
 ::: tip 参考资料：
-0
-
-**微软官方推荐安装教程**
-
-https://docs.microsoft.com/zh-cn/sql/linux/quickstart-install-connect-red-hat?view=sql-server-ver15
-
 
 https://www.51cto.com/article/689825.html
 
 https://blog.csdn.net/yutenys/article/details/122154593
 
 https://zhuanlan.zhihu.com/p/4196332
+
+**微软官方推荐安装教程**
+
+https://docs.microsoft.com/zh-cn/sql/linux/quickstart-install-connect-red-hat?view=sql-server-ver15
+
 :::
 
 
@@ -52,7 +51,20 @@ rpm -qi mssql-server
 sudo /opt/mssql/bin/mssql-conf setup
 ~~~
 
-### 第一步：选择SQL Server的一版本--选择 3）Express ,如果选择2 Developer会失败，不知道为什么
+### 第一步：选择SQL Server的一版本--选择 3）Express 
+
+![An image](../img/mix/image-20230324175745592.png)
+
+![An image](../img/mix/image-20230324175814407.png)
+
+::: tip 提示：
+
+以下 SQL Server 版本是免费提供许可的：Evaluation、Developer 和 Express 版。<br/>
+- [x] valuation： 180 天的试用期。
+- [x] Developer：企业版在功能上几乎一致，没有任何的硬件限制。只是 Developer 版不能用于生产环境
+- [x] Express： 可以用于生产环境，但是在硬件上是有明确限制（最多只能支持 CPU 四核，内存有限制，数据库文件大小也有限制）<br>
+个人学习请使用Developer
+:::
 
 ### 第二步：选择SQL Server的语言--10
 
@@ -100,7 +112,7 @@ Chinese_PRC_CI_AS
 
 ~~~shell
 #下载存储库配置文件
-sudo curl -o /etc/yum.repos.d/msprod.repo https://packages.microsoft.com/config/rhel/8/prod.repo
+sudo curl -o /etc/yum.repos.d/msprod.repo https://packages.microsoft.com/config/rhel/7/prod.repo
 #运行以下命令，以使用 unixODBC 开发人员包安装 mssql-tools。
 sudo yum -y install mssql-tools unixODBC-devel 
 ~~~
