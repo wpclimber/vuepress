@@ -46,7 +46,7 @@ export const zhSidebarConfig = sidebar({
                     collapsible: true,
                     children: [
                         "/dir/highconcurrency/nginx.md",
-                        // "/dir/netcore/publish-netcore.md",
+                        "/dir/highconcurrency/redis.md",
                         // "/dir/netcore/publish-iis.md",
                         // "/dir/netcore/snowflake.md",
                         // "/dir/netcore/automapper.md",

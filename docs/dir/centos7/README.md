@@ -30,6 +30,7 @@
 
 ## 高并发组件
 - [Nginx配置集合](/dir/highconcurrency/update-yum.md) <!-- 具体文件可以使用 .md 结尾（推荐） -->
+- [Redis持久化](/dir/highconcurrency/redis.md) 
 <!-- - [yum安装Redis](yum-redis.md) 
 - [yum安装nginx](yum-nginx.md) 
 - [yum安装mongodb](yum-mongodb.md)  -->
