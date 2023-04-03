@@ -4,7 +4,7 @@
 
 Redis对数据的操作都是基于内存的，当遇到了进程退出、服务器宕机等意外情况，如果没有持久化机 制，那么Redis中的数据将会丢失无法恢复。有了持久化机制，Redis在下次重启时可以利用之前持久化  的文件进行数据恢复。理解和掌握Redis的持久机制，对于Redis的日常开发和运维都有很大帮助。
 
-## [#](https://sunnyfan.cn/dir/centos/redis_rdb_aof.html#redis为持久化提供了两种方式) Redis为持久化提供了两种方式：
+## Redis为持久化提供了两种方式：
 
 - RDB：在指定的时间间隔能对你的数据进行快照存储。
 - AOF：记录每次对服务器写的操作,当服务器重启的时候会重新执行这些命令来恢复原始的数据。
@@ -16,11 +16,11 @@ Redis对数据的操作都是基于内存的，当遇到了进程退出、服务
 - 如何从持久化中恢复数据
 - 关于性能与实践建议
 
-## [#](https://sunnyfan.cn/dir/centos/redis_rdb_aof.html#持久化的配置) 持久化的配置
+## 持久化的配置
 
 为了使用持久化的功能，我们需要先知道该如何开启持久化的功能。
 
-### [#](https://sunnyfan.cn/dir/centos/redis_rdb_aof.html#rdb的持久化配置) RDB的持久化配置
+### RDB的持久化配置
 
 ~~~shell
 # 时间策略
@@ -34,7 +34,7 @@ dir /home/work/app/redis/data/
 # 如果持久化出错，主进程是否停止写入
 stop-writes-on-bgsave-error yes
 # 是否压缩
-rdbcompression yes
+rdbcompression no
 # 导入时是否检查
 rdbchecksum yes
 
@@ -49,7 +49,7 @@ save 300 10 表示300s内有10条写入，就产生快照
 
 下面的类似，那么为什么需要配置这么多条规则呢？因为Redis每个时段的读写请求肯定不是均衡的，为 了平衡性能与数据安全，我们可以自由定制什么情况下触发备份。所以这里就是根据自身Redis写入情况 来进行合理配置。  stop-writes-on-bgsave-error yes 这个配置也是非常重要的一项配置，这是当备  份进程出错时，主进程就停止接受新的写入操作，是为了保护持久化的数据一致性问题。如果自己的业 务有完善的监控系统，可以禁止此项配置， 否则请开启。 关于压缩的配置 rdbcompression yes ，  建议没有必要开启，毕竟Redis本身就属于CPU密集型服务器，再开启压缩会带来更多的CPU消耗，相比 硬盘成本，CPU更值钱。  当然如果你想要禁用RDB配置，也是非常容易的，只需要在save的最后一行写 上： save ""
 
-### [#](https://sunnyfan.cn/dir/centos/redis_rdb_aof.html#aof的配置) AOF的配置
+### AOF的配置
 
 ```bash
 # 是否开启aof
@@ -75,7 +75,7 @@ always ：把每个写命令都立即同步到aof，很慢，但是很安全 eve
 
 一般情况下都采用 everysec 配置，这样可以兼顾速度与安全，最多损失1s的数据。 aof-loadtruncated yes  如果该配置启用，在加载时发现aof尾部不正确是，会向客户端写入一个log，但是会 继续执行，如果设置为 no  ，发现错误就会停止，必须修复后才能重新加载。
 
-## [#](https://sunnyfan.cn/dir/centos/redis_rdb_aof.html#工作原理) 工作原理
+## 工作原理
 
 关于原理部分，我们主要来看RDB与AOF是如何完成持久化的，他们的过程是如何。
 
@@ -83,7 +83,7 @@ always ：把每个写命令都立即同步到aof，很慢，但是很安全 eve
 
 定时任务使用的是Redis自己实现的 TimeEvent，它会定时去调用一些命令完成定时任务，这些任务可能 会阻塞主进程导致Redis性能下降。因此我们在配置Redis时，一定要整体考虑一些会触发定时任务的配 置，根据实际情况进行调整。
 
-### [#](https://sunnyfan.cn/dir/centos/redis_rdb_aof.html#rdb的原理) RDB的原理
+### RDB的原理
 
 在Redis中RDB持久化的触发分为两种：自己手动触发与Redis定时触发。
 
@@ -128,13 +128,13 @@ RDB 持久化机制，是对 Redis 中的数据执行周期性的持久化。更
 >
 > 4、Copy On Write 时如果父子进程大量写操作会导致分页错误。
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/wJvXicD0z2dX4ksecYaj2nLDUQtGalKRicxbyGBcnRxurGthc70mwHZLbUqL0cfk1vt6w3upia5quwGfPujREDspg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+![image-20230308190346845](../img/highconcurrency/redis-bgsave.png)
 
 
 
 
-
-### [#](https://sunnyfan.cn/dir/centos/redis_rdb_aof.html#aof的原理) AOF的原理
+### AOF的原理
 
 AOF的整个流程大体来看可以分为两步，一步是命令的实时写入（如果是 appendfsync everysec 配 置，会有1s损耗），第二步是对aof文件的重写，目的是为了减少AOF文件的大小，可以自动触发或者手动触发(<font color="green">**BGREWRITEAOF**</font>)，是Fork出子进程操作，期间Redis服务仍可用。
 
@@ -173,7 +173,95 @@ AOF 机制对每条写入命令作为日志，以 append-only 的模式写入一
 
 
 
-## [#](https://sunnyfan.cn/dir/centos/redis_rdb_aof.html#从持久化中恢复数据) 从持久化中恢复数据
+## 手动数据备份
+
+### RDB数据备份
+
+1、找到redis-cli目录
+
+~~~shell
+find / -name redis-cli
+~~~
+
+2、进入到redis-cli目录
+
+~~~shell
+cd /usr/bin/
+~~~
+
+3、客户端连接
+
+~~~shell
+redis-cli
+~~~
+
+4、Auth授权（如果redis设置了密码）
+
+~~~shell
+auth password
+~~~
+
+5、执行bgsave命令，rdb数据备份成功
+
+~~~shell
+bgsave
+~~~
+
+6、查找备份的rdb数据
+
+~~~shell
+find / -name dump.rdb
+~~~
+
+
+![image-20230308190346845](../img/highconcurrency/redis-rdb.png)
+
+
+
+### AOF数据备份
+
+1、找到redis-cli目录
+
+~~~shell
+find / -name redis-cli
+~~~
+
+2、进入到redis-cli目录
+
+~~~shell
+cd /usr/bin/
+~~~
+
+3、客户端连接
+
+~~~shell
+redis-cli
+~~~
+
+4、Auth授权（如果redis设置了密码）
+
+~~~shell
+auth password
+~~~
+
+5、执行bgsave命令，rdb数据备份成功
+
+~~~shell
+bgrewriteaof
+~~~
+
+6、查找备份的rdb数据
+
+~~~shell
+find / -name appendonly.aof
+~~~
+
+
+![image-20230308190346845](../img/highconcurrency/redis-aof.png)
+
+
+
+## 从持久化中恢复数据
 
 数据的备份、持久化做完了，我们如何从这些持久化文件中恢复数据呢？如果一台服务器上有既有RDB 文件，又有AOF文件，该加载谁呢？
 
@@ -181,7 +269,7 @@ AOF 机制对每条写入命令作为日志，以 append-only 的模式写入一
 
 启动时会先检查AOF文件是否存在，如果不存在就尝试加载RDB。那么为什么会优先加载AOF呢？因为 AOF保存的数据更完整，通过上面的分析我们知道AOF基本上最多损失1s的数据。
 
-## [#](https://sunnyfan.cn/dir/centos/redis_rdb_aof.html#性能与实践) 性能与实践
+## 性能与实践
 
 通过上面的分析，我们都知道RDB的快照、AOF的重写都需要fork，这是一个重量级操作，会对Redis造 成阻塞。因此为了不影响Redis主进程响应，我们需要尽可能降低阻塞。
 
@@ -202,18 +290,13 @@ AOF 机制对每条写入命令作为日志，以 append-only 的模式写入一
 
 - AOF持久化可以同时存在，配合使用。
 
-  
 
-:::文档提供者：
-
+::: 文档提供者
 [#](https://sunnyfan.cn/dir/centos/redis_rdb_aof.html)<font size="5px" color="green">SunnyFun</font>
 
 [#](https://www.zhaoxiedu.net/)<font size="5px" color="green">朝夕教育</font>
-
 :::
 
 
-
 >参考
->
 >https://mp.weixin.qq.com/s?__biz=MzU0OTE4MzYzMw==&mid=2247499410&idx=5&sn=9c107e0389735f13edadfe1086c8592d&chksm=fbb1776cccc6fe7a154ec10851e3499ff43a258334c3a77c20fd9baeb2dfea376c741da9e813&scene=27

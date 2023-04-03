@@ -67,6 +67,12 @@ pm2 stop all
 #重启所有应用程序
 pm2 restart all
 
+# 保存当前应用列表
+pm2 save                      
+# 重新加载保存的应用列表
+pm2 resurrect             
+
+
 #删除进程
 pm2 delete [9]
 #关闭并删除所有应用程序

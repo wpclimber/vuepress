@@ -133,7 +133,7 @@ vim ../conf/mongodb.conf
 
 
 
-~~~shelll
+~~~shell
 #再次启动mongodb
 ./mongod -f ../conf/mongodb.conf
 #进入mongodb

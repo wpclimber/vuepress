@@ -18,6 +18,7 @@ export const zhSidebarConfig = sidebar({
                         "/dir/centos7/yum-nginx.md",
                         "/dir/centos7/yum-redis.md",
                         "/dir/centos7/yum-mongodb.md",
+                        "/dir/centos7/yum-rabbitmq.md",
                         "/dir/centos7/publish-vueproject.md",
                         "/dir/centos7/install-sqlserver2019.md",
                         "/dir/centos7/certbot-ssl.md",

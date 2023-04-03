@@ -6,6 +6,7 @@
 - [yum安装Redis](yum-redis.md) <!-- 也可以用 .html -->
 - [yum安装nginx](yum-nginx.md) 
 - [yum安装mongodb](yum-mongodb.md) 
+- [yum安装RabbitMQ](yum-rabbitmq.md) 
 - [部署Vue项目到Centos7](publish-vueproject.md) 
 - [安装Sqlserver2019数据库](install-sqlserver2019.md) 
 - [硬装Nginx](normal-nginx.md) 

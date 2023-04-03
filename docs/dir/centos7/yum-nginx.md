@@ -33,6 +33,8 @@ yum -y install nginx
 ## 常用命令
 
 ~~~shell
+#设置开机自启动
+systemctl enable nginx
 #启动nginx
 systemctl start nginx
 #查看nginx状态
