@@ -48,7 +48,7 @@ export const zhSidebarConfig = sidebar({
                     children: [
                         "/dir/highconcurrency/nginx.md",
                         "/dir/highconcurrency/redis.md",
-                        // "/dir/netcore/publish-iis.md",
+                        "/dir/highconcurrency/rabbitmq-info.md",
                         // "/dir/netcore/snowflake.md",
                         // "/dir/netcore/automapper.md",
                         // "/dir/netcore/publish-vueproject.md",
